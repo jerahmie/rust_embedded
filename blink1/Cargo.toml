@@ -3,9 +3,17 @@ edition = "2021"
 name    = "blink1"
 version = "0.1.0"
 
+[lib]
+name = "blinklib"
+path = "src/lib.rs"
+
 [[bin]]
 name = "blink1"
 path = "./src/bin/main.rs"
+
+[[bin]]
+name = "test1"
+path = "./src/bin/test1.rs"
 
 [dependencies]
 critical-section = "1.2.0"
