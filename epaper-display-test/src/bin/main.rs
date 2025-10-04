@@ -10,7 +10,7 @@ use esp_hal::clock::CpuClock;
 use esp_hal::main;
 use esp_hal::time::{Duration, Instant, Rate};
 use esp_hal::i2c::master::{Config, I2c};
-
+use esp_println::println;
 #[panic_handler]
 fn panic(_: &core::panic::PanicInfo) -> ! {
     loop {}
@@ -23,18 +23,20 @@ esp_bootloader_esp_idf::esp_app_desc!();
 #[main]
 fn main() -> ! {
     // generator version: 0.5.0
-    const DEVICE_ADDR: u8 = 0x77;
+    // const DEVICE_ADDR: u8 = 0x77;
 
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
     let i2c_config = Config::default().with_frequency(Rate::from_khz(100));
-    let mut i2c = I2c::new(peripherals.I2C0, i2c_config).unwrap()
+    let mut _i2c = I2c::new(peripherals.I2C0, i2c_config).unwrap()
         .with_sda(peripherals.GPIO2)
         .with_scl(peripherals.GPIO3);
 
+    println!("Hello World!");
     loop {
         let delay_start = Instant::now();
         while delay_start.elapsed() < Duration::from_millis(500) {}
+        println!("Loop...");
     }
 
     // for inspiration have a look at the examples at https://github.com/esp-rs/esp-hal/tree/esp-hal-v1.0.0-rc.0/examples/src/bin
